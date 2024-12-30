@@ -1,13 +1,16 @@
 import { createVueMetamorphCli } from 'vue-metamorph';
 import process from 'process';
 
-import { helloWorldCodemod } from './plugins/hello-world.js';
+import { absolutePathCodemod } from './plugins/absolute-path.js';
 
 const cli = createVueMetamorphCli({
   // register plugins here!
   plugins: [
-    helloWorldCodemod,
+    absolutePathCodemod,
   ],
+  additionalCliOptions: (program) => {
+    program.option('--project-source <path>', 'The src directory of the project', process.cwd());
+  }
 });
 
 process.on('SIGQUIT', cli.abort);
