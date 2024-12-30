@@ -7,12 +7,11 @@ export const helloWorldCodemod: CodemodPlugin = {
     let transformCount = 0;
 
     for (const scriptAST of scriptASTs) {
-      // or, using the findAll helper
       astHelpers
-        .findAll(scriptAST, { type: 'Literal' })
-        .forEach((literal) => {
-          if (typeof literal.value === 'string') {
-            literal.value = 'Hello, world!';
+        .findAll(scriptAST, { type: 'ImportDeclaration' })
+        .forEach((importDeclaration) => {
+          if (typeof importDeclaration.source.type === 'string') {
+            importDeclaration.source.value = 'vue';
             transformCount++;
           }
         });
